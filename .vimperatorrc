@@ -1,0 +1,17 @@
+" use Startpage as default search engine
+set defsearch=startpage
+
+" j and k are a bit tame in the default settings
+noremap j 3j
+noremap k 3k
+
+" d is a stupid key for closing tabs, when C-d is used so frequently
+noremap d x
+
+" Some better characters for hints
+set hintchars=hjklasdfgyuiopqwertnmzxcvb
+
+" Highlighting for hints, most importantly make HintElems transparent to
+" remove all the yellow highlighting
+highlight Hint font-family: monospace; font-size: 10px; font-weight: bold; color: white; background-color: red; border-color: ButtonShadow; border-width: 0px; border-style: solid; padding: 0px 1px 0px 1px;
+highlight HintElem background-color: NONE; color: black;
