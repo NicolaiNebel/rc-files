@@ -1,4 +1,4 @@
-alias v='vim'
+alias v='vim -p' # Open new files in tabs
 alias gdb='gdb -q'
 alias g11='g++ -std=c++11'
 alias c='clear'
