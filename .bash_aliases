@@ -1,4 +1,4 @@
-alias v='vim -p' # Open new files in tabs
+alias v='nvim -p' # Open new files in tabs
 alias gdb='gdb -q'
 alias g11='g++ -std=c++11'
 alias c='clear'
@@ -8,12 +8,12 @@ alias ipy='ipython'
 # alias irc='ssh nebel@lolbox.pwnies.dk -t screen -dr irc'
 
 # ida pro
-alias ida='wine ~/ida66/idaq.exe'
-alias ida64='wine ~/ida66/idaq64.exe'
+# alias ida='wine ~/ida66/idaq.exe'
+# alias ida64='wine ~/ida66/idaq64.exe'
 
 # alias net='~/repos/net/net'
 
-alias livestreamer='livestreamer --http-header Client-ID=jzkbprff40iqj646a697cyrvl0zt2m6 --player=mpv'
+# alias livestreamer='livestreamer --http-header Client-ID=jzkbprff40iqj646a697cyrvl0zt2m6 --player=mpv'
 
 # a decent irb default
 alias irb='irb --readline -r irb/completion'

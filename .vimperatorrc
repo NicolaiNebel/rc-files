@@ -1,12 +1,16 @@
 " use Startpage as default search engine
-set defsearch=startpage
+" set defsearch=startpage
 
 " j and k are a bit tame in the default settings
 noremap j 3j
 noremap k 3k
 
 " d is a stupid key for closing tabs, when C-d is used so frequently
-noremap d x
+" noremap d x
+
+" I find this easier to do
+noremap gt gT
+noremap gy gt
 
 " Some better characters for hints
 set hintchars=hjklasdfgyuiopqwertnmzxcvb

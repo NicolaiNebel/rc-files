@@ -33,7 +33,7 @@ main = do-- {{{
   xmproc <- spawnPipe "/usr/bin/xmobar /home/nicolai/.xmonad/xmobarrc"
   xmonad $ defaultConfig
       { manageHook = myManageHook <+> manageHook defaultConfig
-      , layoutHook = setWorkspaceDirs $ avoidStruts $ smartBorders $ layoutHook defaultConfig
+      , layoutHook = setWorkspaceDirs $ avoidStruts $ layoutHook defaultConfig
       , logHook = dynamicLogWithPP xmobarPP
                       { ppOutput = hPutStrLn xmproc
                       , ppTitle = xmobarColor "green" "" . shorten 100
@@ -66,7 +66,7 @@ myWorkSpaces = [ "web"
                , "shell1"
                , "shell2"
                , "shell3"
-               , "gmail"
+               , "mail"
                , "calendar"
                , "pdf"
                , "irc"
@@ -88,8 +88,7 @@ myTopicConfig :: TopicConfig
 myTopicConfig = TopicConfig
   { topicDirs = M.fromList []
   , topicActions = M.fromList [
-        ("web",      browser)
-      , ("mail",    appBrowser "gmail.com")
+        ("mail",    appBrowser "gmail.com")
       , ("calendar", appBrowser "calendar.google.com")
       , ("music",    appBrowser "listen.tidal.com")
       , ("irc",      spawn $ term ++ " -e irssi")

@@ -103,6 +103,7 @@ set directory=/var/tmp/vim-nebel/swap
 " Colors
 " 256 color mode
 set t_Co=256
+" set termguicolors
 
 " colorscheme sift
 colorscheme desert256
