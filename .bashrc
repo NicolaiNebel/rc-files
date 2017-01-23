@@ -111,4 +111,5 @@ if ! shopt -oq posix; then
   fi
 fi
 
+feh --bg-scale /usr/share/wallpapers/wallpaper.jpg
 # source .bash_profile

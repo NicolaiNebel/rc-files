@@ -2,6 +2,7 @@
 {-# LANGUAGE FlexibleInstances #-}
 
 import XMonad-- {{{
+import XMonad.Config.Kde
 import qualified XMonad.StackSet as W
 
 import XMonad.Hooks.DynamicLog
@@ -32,28 +33,29 @@ import XMonad.Layout.WorkspaceDirAlt
 main = do-- {{{
   xmproc <- spawnPipe "/usr/bin/xmobar /home/nicolai/.xmonad/xmobarrc"
   xmonad $ defaultConfig
-      { manageHook = myManageHook <+> manageHook defaultConfig
-      , layoutHook = setWorkspaceDirs $ avoidStruts $ layoutHook defaultConfig
-      , logHook = dynamicLogWithPP xmobarPP
-                      { ppOutput = hPutStrLn xmproc
-                      , ppTitle = xmobarColor "green" "" . shorten 100
-                      }
-      , modMask = modm --Rebind mod key to windows key
-      , workspaces = myWorkSpaces
-      , terminal = term
+      { manageHook        = myManageHook <+> manageHook defaultConfig
+      , layoutHook        = setWorkspaceDirs $ avoidStruts $ layoutHook defaultConfig
+      , logHook           = dynamicLogWithPP xmobarPP
+                              { ppOutput = hPutStrLn xmproc
+                              , ppTitle = xmobarColor "green" "" . shorten 100
+                              }
+      , handleEventHook   = docksEventHook <+> handleEventHook defaultConfig
+      , modMask           = modm --Rebind mod key to windows key
+      , workspaces        = myWorkSpaces
+      , terminal          = term
       , focusFollowsMouse = False
       } `additionalKeys` [
         ((mod4Mask, xK_m), spawn "setxkbmap dk")
       , ((mod4Mask, xK_n), spawn "setxkbmap us")
-      , ((0, xF86XK_AudioLowerVolume), spawn "amixer -D pulse sset Master 5%-")
-      , ((0, xF86XK_AudioRaiseVolume), spawn "amixer -D pulse sset Master 5%+")
+      , ((0, xF86XK_AudioLowerVolume), spawn "amixer -D pulse sset Master 10%-")
+      , ((0, xF86XK_AudioRaiseVolume), spawn "amixer -D pulse sset Master 10%+")
       , ((0, xF86XK_AudioMute), spawn "amixer -D pulse sset Master toggle")
       , ((0, xF86XK_MonBrightnessDown), spawn "xbacklight -inc -10")
       , ((0, xF86XK_MonBrightnessUp), spawn "xbacklight -inc +10")
-      , ((modm, xK_BackSpace), scratchpadSpawnActionCustom (term ++ " --disable-factory --name scratchpad"))
+      , ((modm, xK_BackSpace), scratchpadSpawnActionCustom (term ++ " --name scratchpad"))
       , ((modm, xK_Tab), sendMessage NextLayout)
-
       , ((modm, xK_z), goToSelectedWS myTopicConfig True myGSConfig)
+      , ((0, xF86XK_ScreenSaver), spawn "i3lock -c 000000")
       ]
 
 modm = mod4Mask
@@ -69,6 +71,7 @@ myWorkSpaces = [ "web"
                , "mail"
                , "calendar"
                , "pdf"
+               , "skype"
                , "irc"
                ]
 
@@ -79,7 +82,7 @@ setWorkspaceDirs = workspaceDir "~"
 -- Custom hooks-- {{{
 myManageHook :: ManageHook
 myManageHook = composeAll [
-      className =? "Evince" --> doShift "pdf"
+      className =? "Okular" --> doShift "pdf"
     , manageDocks
     , scratchpadManageHook (W.RationalRect 0.1 0.1 0.8 0.8)
     ]
@@ -87,12 +90,12 @@ myManageHook = composeAll [
 myTopicConfig :: TopicConfig
 myTopicConfig = TopicConfig
   { topicDirs = M.fromList []
-  , topicActions = M.fromList [
-        ("mail",    appBrowser "gmail.com")
-      , ("calendar", appBrowser "calendar.google.com")
-      , ("music",    appBrowser "listen.tidal.com")
-      , ("irc",      spawn $ term ++ " -e irssi")
-      ]
+  , topicActions = M.fromList [ ("mail"     , appBrowser "gmail.com")
+                              , ("calendar" , appBrowser "calendar.google.com")
+                              , ("music"    , appBrowser "listen.tidal.com")
+                              , ("irc"      , spawn $ term ++ " -e irssi")
+                              , ("skype"    , spawn $ "skypeforlinux")
+                              ]
   , defaultTopicAction = const $ return ()
   , defaultTopic = "web"
   , maxTopicHistory = 25
